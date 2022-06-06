@@ -80,9 +80,32 @@ app.get('/todos', checksExistsUserAccount, (request, response) => {
   return response.json(user.todos);
 });
 
-
+// Rota para adicionar uma tarefa
+/**
+ * Adicionar uma tarefa ao usuário
+ * 
+ * title - título da tarefa
+ * deadline - data limite da tarefa
+ * 
+ * 201 -> Retorna a tarefa com id, título, data limite, data de criação e se está concluída
+ */
 app.post('/todos', checksExistsUserAccount, (request, response) => {
+  const {title, deadline} = request.body;
   // Complete aqui
+  const {user} = request;
+
+  const todo = {
+    id: uuidv4(),
+    title,
+    done: false,
+    deadline: new Date(deadline),
+    created_at: new Date()
+  };
+
+  user.todos.push(todo);
+
+  return response.status(201).json(todo);
+
 });
 
 app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
