@@ -10,6 +10,10 @@ app.use(express.json());
 
 const users = [];
 
+// Middleware
+/**
+ * Middleware que verifica se o usuário existe
+ */
 function checksExistsUserAccount(request, response, next) {
   // Complete aqui
   const { username } = request.headers;
@@ -62,9 +66,20 @@ app.post('/users', (request, response) => {
 
 });
 
+// Rota para obter as tarefas de um usuários
+/**
+ *  Obter todas as tarefas de um usuário
+ * 
+ *  Retorna todas as tarefas do usuário
+ * 
+ *  Erro - Usuário não encontrado
+ */
 app.get('/todos', checksExistsUserAccount, (request, response) => {
   // Complete aqui
+  const { user } = request;
+  return response.json(user.todos);
 });
+
 
 app.post('/todos', checksExistsUserAccount, (request, response) => {
   // Complete aqui
