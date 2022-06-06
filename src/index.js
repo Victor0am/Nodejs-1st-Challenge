@@ -108,8 +108,39 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
 
 });
 
+// Rota para editar uma tarefa
+
+/**
+ * Editar uma tarefa
+ * 
+ * id - id da tarefa
+ * title - título da tarefa
+ * deadline - data limite da tarefa
+ * 
+ * Retorna a tarefa com id, título, data limite, data de criação e se está concluída atualizados
+ * 
+ * 404 -> Erro - Tarefa não encontrada
+ */
+
 app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
   // Complete aqui
+  const {id} = request.params;
+  const {user} = request;
+  const {title, deadline} = request.body;
+
+  const todoIndex = user.todos.findIndex(todo => todo.id === id);
+
+  if(todoIndex < 0){
+    return response.status(404).json({error: 'Todo not found.'});
+  }
+
+  const todo = user.todos[todoIndex];
+
+  todo.title = title;
+  todo.deadline = new Date(deadline);
+
+  return response.json(todo);
+
 });
 
 app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
