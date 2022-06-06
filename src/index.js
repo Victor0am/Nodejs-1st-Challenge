@@ -143,8 +143,33 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
 
 });
 
+// Rota para deixar uma tarefa pronta
+/**
+ * Marcar uma tarefa como concluída
+ * 
+ * id - id da tarefa
+ * 
+ * Retorna a tarefa com id, título, data limite, data de criação e se está concluída atualizados
+ * 
+ */
+
 app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
   // Complete aqui
+  const {id} = request.params;
+  const {user} = request;
+
+  const todoIndex = user.todos.findIndex(todo => todo.id === id);
+
+  if(todoIndex < 0){
+    return response.status(404).json({error: 'Todo not found.'});
+  }
+
+  const todo = user.todos[todoIndex];
+
+  todo.done = !todo.done;
+
+  return response.json(todo);
+
 });
 
 app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
