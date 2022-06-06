@@ -13,11 +13,11 @@ Essa será uma aplicação para gerenciar tarefas (em inglês *todos*). S
 - Excluir um *todo*;
 
 Tudo isso para cada usuário em específico (o `username` será passado pelo header). A seguir veremos com mais detalhes o que e como precisa ser feito 🚀
-## Rotas da aplicação
+### Rotas da aplicação
 
 Com o template já clonado e o arquivo `index.js` aberto, você deve completar onde não possui código com o código para atingir os objetivos de cada teste.
 
-### POST `/users`
+#### POST `/users`
 
 A rota deve receber `name`, e `username` dentro do corpo da requisição. Ao cadastrar um novo usuário, ele deve ser armazenado dentro de um objeto no seguinte formato:  
 
@@ -33,11 +33,11 @@ A rota deve receber `name`, e `username` dentro do corpo da requisição. Ao cad
 Certifique-se que o ID seja um UUID, e de sempre iniciar a lista `todos` como um array vazio.
 O objeto do usuário deve ser retornado na resposta da requisição. 
 
-### GET `/todos`
+#### GET `/todos`
 
 A rota deve receber, pelo header da requisição, uma propriedade `username` contendo o username do usuário e retornar uma lista com todas as tarefas desse usuário.
 
-### POST `/todos`
+#### POST `/todos`
 
 A rota deve receber `title` e `deadline` dentro do corpo da requisição e, uma propriedade `username` contendo o username do usuário dentro do header da requisição. Ao criar um novo *todo*, ele deve ser armazenada dentro da lista `todos` do usuário que está criando essa tarefa. Cada tarefa deverá estar no seguinte formato:  . Certifique-se que o ID seja um UUID.
 
@@ -68,14 +68,14 @@ A rota deve receber `title` e `deadline` dentro do corpo da requisição e, uma 
 Usar `new Date(deadline)` irá realizar a transformação da string "ANO-MÊS-DIA" (por exemplo "2021-02-25") para uma data válida do JavaScript.
 O objeto do `todo` deve ser retornado na resposta da requisição.
 
-### PUT `/todos/:id`
+#### PUT `/todos/:id`
 
 A rota deve receber, pelo header da requisição, uma propriedade `username` contendo o username do usuário e receber as propriedades `title` e `deadline` dentro do corpo. É preciso alterar **apenas** o `title` e o `deadline` da tarefa que possua o `id` igual ao `id` presente nos parâmetros da rota.
 
-### PATCH `/todos/:id/done`
+#### PATCH `/todos/:id/done`
 
 A rota deve receber, pelo header da requisição, uma propriedade `username` contendo o username do usuário e alterar a propriedade `done` para `true` no *todo* que possuir um `id` igual ao `id` presente nos parâmetros da rota.
 
-### DELETE `/todos/:id`
+#### DELETE `/todos/:id`
 
 A rota deve receber, pelo header da requisição, uma propriedade `username` contendo o username do usuário e excluir o *todo* que possuir um `id` igual ao `id` presente nos parâmetros da rota.
