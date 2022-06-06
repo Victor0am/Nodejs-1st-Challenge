@@ -151,6 +151,7 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
  * 
  * Retorna a tarefa com id, título, data limite, data de criação e se está concluída atualizados
  * 
+ * 404 -> Erro - Tarefa não encontrada
  */
 
 app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
@@ -172,8 +173,30 @@ app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
 
 });
 
+// Rota para deletar uma tarefa
+/**
+ * Deletar uma tarefa
+ * 
+ * id - id da tarefa
+ * 
+ * 204 -> Tarefa deletada
+ * 
+ * 404 -> Erro - Tarefa não encontrada
+ */
 app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
   // Complete aqui
+  const {id} = request.params;
+  const {user} = request;
+
+  const todoIndex = user.todos.findIndex(todo => todo.id === id);
+
+  if(todoIndex < 0){
+    return response.status(404).json({error: 'Todo not found.'});
+  }
+
+  user.todos.splice(todoIndex, 1);
+
+  return response.status(204).send();
 });
 
 module.exports = app;
